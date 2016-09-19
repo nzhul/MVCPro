@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PartyInvites.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,9 +16,17 @@ namespace PartyInvites.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public ActionResult RsvpForm()
 		{
 			return View();
+		}
+
+		[HttpPost]
+		public ViewResult RsvpForm(GuestResponse guestResponse)
+		{
+			//TODO: Email response to the party organizer
+			return View("Thanks", guestResponse);
 		}
 	}
 }
