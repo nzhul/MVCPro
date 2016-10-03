@@ -3,13 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PartyInvites.Controllers
 {
 	public class HomeController : Controller
 	{
+		private IValueCalculator calc;
+
+		public HomeController(IValueCalculator calcParam)
+		{
+			this.calc = calcParam;
+		}
+
+		private Product[] array =
+			{
+				new Product {Name = "Kayak", Price = 275M},
+				new Product {Name = "Lifejacket", Price = 48.95M},
+				new Product {Name = "Soccer ball", Price = 19.50M},
+				new Product {Name = "Corner flag", Price = 34.95M}
+			};
+
+		public ActionResult Index()
+		{
+			ShoppingCart cart = new ShoppingCart(this.calc) { Products = array };
+			decimal totalValue = cart.CalculateProductTotal();
+			return View(totalValue);
+		}
+
 		public ViewResult SumProducts()
 		{
 			Product[] products = {
@@ -133,7 +154,7 @@ namespace PartyInvites.Controllers
 
 		public ViewResult UseFilterExtensionMethod()
 		{
-			IEnumerable<Product> products = new ShoppingCart
+			IEnumerable<Product> products = new ShoppingCart(this.calc)
 			{
 				Products = new List<Product> {
 					new Product {Name = "Kayak", Category = "Watersports", Price = 275M},
@@ -170,7 +191,7 @@ namespace PartyInvites.Controllers
 
 		public ViewResult UseExtension()
 		{
-			IEnumerable<Product> products = new ShoppingCart
+			IEnumerable<Product> products = new ShoppingCart(this.calc)
 			{
 				Products = new List<Product> {
 				new Product {Name = "Kayak", Price = 275M},
@@ -194,13 +215,6 @@ namespace PartyInvites.Controllers
 			decimal arrayTotal = productArray.TotalPrices();
 
 			return View("Result", (object)String.Format("Cart Total: {0}, Array Total: {1}", cartTotal, arrayTotal));
-		}
-
-		public ActionResult Index()
-		{
-			int hour = DateTime.Now.Hour;
-			ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
-			return View();
 		}
 
 		[HttpGet]

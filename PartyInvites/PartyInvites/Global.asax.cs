@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PartyInvites.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,9 @@ namespace PartyInvites
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
+
+			DependencyResolver.SetResolver(new NinjectDependencyResolver());
+
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);

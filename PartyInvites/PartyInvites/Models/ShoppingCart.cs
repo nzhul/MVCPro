@@ -8,7 +8,14 @@ namespace PartyInvites.Models
 {
 	public class ShoppingCart : IEnumerable<Product>
 	{
-		public List<Product> Products { get; set; }
+		private IValueCalculator calc;
+
+		public IEnumerable<Product> Products { get; set; }
+
+		public ShoppingCart(IValueCalculator calcParam)
+		{
+			calc = calcParam;
+		}
 
 		public IEnumerator<Product> GetEnumerator()
 		{
@@ -18,6 +25,11 @@ namespace PartyInvites.Models
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		public decimal CalculateProductTotal()
+		{
+			return calc.ValueProducts(Products);
 		}
 	}
 }
