@@ -49,10 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
