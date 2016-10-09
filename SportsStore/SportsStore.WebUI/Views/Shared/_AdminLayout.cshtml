@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<link href="~/Content/Admin.css" rel="stylesheet" type="text/css" />
+	<title></title>
+</head>
+<body>
+	<div>
+		@if (TempData["message"] != null)
+				{
+			<div class="Message">
+				@TempData["message"]
+			</div>
+		}
+		@RenderBody()
+	</div>
+</body>
+</html>
