@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SportsStore.Domain.Concrete;
 using System.Configuration;
+using SportsStore.WebUI.Infrastructure.Abstract;
+using SportsStore.WebUI.Infrastructure.Concrete;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -29,8 +31,8 @@ namespace SportsStore.WebUI.Infrastructure
 
 		private void AddBindings()
 		{
-			ninjectKernel.Bind<IProductRepository>()
-				.To<EFProductRepository>();
+			ninjectKernel.Bind<IProductRepository>().To<EFProductRepository>();
+			ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
 
 			EmailSettings emailSettings = new EmailSettings
 			{
