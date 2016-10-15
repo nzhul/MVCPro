@@ -11,13 +11,14 @@ namespace UrlsAndRoutes
 	{
 		public static void RegisterRoutes(RouteCollection routes)
 		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			Route myRoute = new Route("{controller}/{action}", new MvcRouteHandler());
+			routes.Add("MyRoute", myRoute);
 
-			routes.MapRoute(
-				name: "Default",
-				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-			);
+			// MVC Only
+			//routes.MapRoute("MyRoute", "{controller}/{action}");
+
+			// WebForms only
+			//routes.MapPageRoute();
 		}
 	}
 }
