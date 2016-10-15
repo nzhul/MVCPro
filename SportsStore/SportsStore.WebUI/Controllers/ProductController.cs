@@ -1,4 +1,5 @@
 ﻿using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,19 @@ namespace SportsStore.WebUI.Controllers
 			model.CurrentCategory = category;
 
 			return View(model);
+		}
+
+		public FileContentResult GetImage(int productId)
+		{
+			Product prod = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+			if (prod != null)
+			{
+				return File(prod.ImageData, prod.ImageMimeType);
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 }
