@@ -99,7 +99,7 @@ namespace SportsStore.UnitTests
 			Product product = new Product { Name = "Test" };
 
 			// act - try to save the product
-			ActionResult result = target.Edit(product);
+			ActionResult result = target.Edit(product, null);
 
 			// assert - check that the repository was called
 			mock.Verify(m => m.SaveProduct(product));
@@ -124,7 +124,7 @@ namespace SportsStore.UnitTests
 			target.ModelState.AddModelError("error", "error");
 
 			// act - try to save the product
-			ActionResult result = target.Edit(product);
+			ActionResult result = target.Edit(product, null);
 
 			// assert - check that the repository was not called
 			mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
