@@ -11,5 +11,23 @@
 <body>
 	<div>The controller is: @ViewBag.Controller</div>
 	<div>The action is: @ViewBag.Action</div>
+	<div>
+		@Html.ActionLink("This targets another controller", "Index", "Admin") <br />
+		@Html.ActionLink("This is an outgoing URL",
+	   "Index",
+	   "Home",
+	   "https",
+	   "myserver.mydomain.com",
+	   "myFragmentName",
+	   new { id = "myId" },
+	   new { id = "myAnchorID", @class = "myCSSClass" })
+	</div>
+	<div>
+		This is a URL:
+		@Html.ActionLink("Click me", "GetLegacyURL",
+new { legacyURL = "~/articles/Windows_3.1_Overview.html" })
+	</div>
 </body>
+
+
 </html>

@@ -11,16 +11,21 @@ namespace UrlsAndRoutes.Controllers
 			return View("ActionName");
 		}
 
-		public ActionResult About()
+		public ActionResult CustomVariable(string id = "DefaultId")
 		{
-			ViewBag.Message = "Your application description page.";
-
+			ViewBag.Controller = "Home";
+			ViewBag.Action = "CustomVariable";
+			ViewBag.CustomVariable = id;
+			ViewBag.CatchAll = RouteData.Values["catchall"];
 			return View();
 		}
 
-		public ActionResult Contact()
+		public ViewResult MyActionMethod()
 		{
-			ViewBag.Message = "Your contact page.";
+			string myActionUrl = Url.Action("Index", new { id = "MyID" });
+			string myRouteUrl = Url.RouteUrl(new { controller = "Home", action = "Index" });
+
+			// do something with the URLS
 
 			return View();
 		}

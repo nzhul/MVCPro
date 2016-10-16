@@ -1,10 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
+using System.Reflection;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using UrlsAndRoutes;
-using System.Reflection;
 
 namespace Tests
 {
@@ -90,16 +91,36 @@ namespace Tests
 		[TestMethod]
 		public void TestIncomingRoutes()
 		{
-			// check for the url that we hope to receive
+			//TestRouteMatch("~/", "Home", "Index");
+			//TestRouteMatch("~/Home", "Home", "Index");
+			//TestRouteMatch("~/Home/Index", "Home", "Index");
+			//TestRouteMatch("~/Home/About", "Home", "About");
+			//TestRouteMatch("~/Home/About/MyId", "Home", "About", new { id = "MyId" });
+			//TestRouteMatch("~/Home/About/MyId/More/Segments", "Home", "About",
+			//	new
+			//	{
+			//		id = "MyId",
+			//		catchall = "More/Segments"
+			//	});
 
-			TestRouteMatch("~/Admin/Index", "Admin", "Index");
+			//TestRouteFail("~/Home/OtherAction");
+			//TestRouteFail("~/Account/Index");
+			//TestRouteFail("~/Account/About");
+		}
 
-			// check that the values are being obtained from the segments
-			TestRouteMatch("~/One/Two", "One", "Two");
-
-			// ensure that too many or too few segments fails to match
-			TestRouteFail("~/Admin/Index/Segment");
-			TestRouteFail("~/Admin");
+		[TestMethod]
+		public void TestOutgoingRoutes()
+		{
+			// Arrange
+			RouteCollection routes = new RouteCollection();
+			RouteConfig.RegisterRoutes(routes);
+			RequestContext context = new RequestContext(CreateHttpContext(),
+			new RouteData());
+			// Act - generate the URL
+			string result = UrlHelper.GenerateUrl(null, "Index", "Home", null,
+			routes, context, true);
+			// Assert
+			Assert.AreEqual("/App/DoIndex", result);
 		}
 	}
 }
