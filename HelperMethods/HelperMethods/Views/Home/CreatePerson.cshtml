@@ -1,31 +1,68 @@
 ﻿@model HelperMethods.Models.Person
 @{
+	Layout = null;
 	ViewBag.Title = "CreatePerson";
 	Html.EnableClientValidation(false);
 }
-<h2>CreatePerson</h2>
-@using (Html.BeginForm("CreatePerson", "Home", FormMethod.Post, new { @class = "personClass", data_formType = "person" }))
-{
-	<div class="dataElem">
-		<label>PersonId</label>
-		@Html.EditorFor(m => m.PersonId)
-	</div>
-	<div class="dataElem">
-		<label>First Name</label>
-		@Html.TextBoxFor(m => m.FirstName)
-	</div>
-	<div class="dataElem">
-		<label>Last Name</label>
-		@Html.TextBoxFor(m => m.LastName)
-	</div>
-	<div class="dataElem">
-		<label>Role</label>
-		@Html.DropDownListFor(m => m.Role,
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>CreatePerson</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 100px;
+		}
+
+h2 > label {width: inherit;}
+.editor-label, .editor-field {float: left;}
+.editor-label, .editor-label label, .editor-field input {height: 20px;}
+.editor-label {clear: left;}
+.editor-field { margin-left: 10px; margin-top: 10px;}
+input[type=submit] { float: left; clear: both; margin-top: 10px;}
+.column { float: left; margin: 10px;}
+	</style>
+</head>
+<body>
+
+	<h2>CreatePerson: @Html.LabelForModel()</h2>
+	@using (Html.BeginForm("CreatePerson", "Home", FormMethod.Post,
+							new { @class = "personClass", data_formType = "person" }))
+	{
+		@*<div class="dataElem">
+			<label>PersonId</label>
+			@Html.EditorFor(m => m.PersonId)
+		</div>
+		<div class="dataElem">
+			<label>First Name</label>
+			@Html.EditorFor(m => m.FirstName)
+		</div>
+		<div class="dataElem">
+			<label>Last Name</label>
+			@Html.EditorFor(m => m.LastName)
+		</div>
+		<div class="dataElem">
+			<label>Role</label>
+			@Html.DropDownListFor(m => m.Role,
 new SelectList(Enum.GetNames(typeof(HelperMethods.Models.Role))))
-	</div>
-	<div class="dataElem">
-		<label>Birth Date</label>
-		@Html.EditorFor(m => m.BirthDate)
-	</div>
-	<input type="submit" value="Submit" />
-}
+		</div>
+		<div class="dataElem">
+			<label>Birth Date</label>
+			@Html.EditorFor(m => m.BirthDate)
+		</div>*@
+
+		<div class="column">
+			@Html.EditorForModel()
+		</div>
+		<div class="column">
+			@Html.EditorFor(m => m.HomeAddress)
+		</div>
+
+		<input type="submit" value="Submit" />
+	}
+
+</body>
+</html>

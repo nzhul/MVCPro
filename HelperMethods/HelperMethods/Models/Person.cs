@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace HelperMethods.Models
 {
-	public class Person
+	[MetadataType(typeof(PersonMetaData))]
+	public partial class Person
 	{
 		public int PersonId { get; set; }
 		public string FirstName { get; set; }
