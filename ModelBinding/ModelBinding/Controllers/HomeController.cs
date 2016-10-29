@@ -44,10 +44,18 @@ namespace ModelBinding.Controllers
 			return View(summary);
 		}
 
-		public ActionResult Names(string[] names)
+		public ActionResult Names(IList<string> names)
 		{
-			names = names ?? new string[0];
+			names = names ?? new List<string>();
 			return View(names);
+		}
+
+		public ActionResult Address(IList<AddressSummary> addresses)
+		{
+			addresses = addresses ?? new List<AddressSummary>();
+
+			UpdateModel(addresses, new FormValueProvider(this.ControllerContext)); // calling model binder manualy
+			return View(addresses);
 		}
 	}
 }

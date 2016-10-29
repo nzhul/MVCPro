@@ -199,6 +199,7 @@
     <Content Include="Views\Home\CreatePerson.cshtml" />
     <Content Include="Views\Home\DisplaySummary.cshtml" />
     <Content Include="Views\Home\Names.cshtml" />
+    <Content Include="Views\Home\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
