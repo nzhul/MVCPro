@@ -50,11 +50,12 @@ namespace ModelBinding.Controllers
 			return View(names);
 		}
 
-		public ActionResult Address(IList<AddressSummary> addresses)
+		public ActionResult Address(FormCollection formData)
 		{
-			addresses = addresses ?? new List<AddressSummary>();
+			IList<AddressSummary> addresses = new List<AddressSummary>();
 
-			UpdateModel(addresses, new FormValueProvider(this.ControllerContext)); // calling model binder manualy
+			UpdateModel(addresses);
+
 			return View(addresses);
 		}
 	}

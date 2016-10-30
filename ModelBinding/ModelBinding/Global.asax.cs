@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelBinding.Infrastructure;
+using ModelBinding.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,11 @@ namespace ModelBinding
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
+
+			//ValueProviderFactories.Factories.Insert(0, new CustomValueProviderFactory());
+
+			ModelBinders.Binders.Add(typeof(AddressSummary), new AddressSummaryBinder());
+
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
