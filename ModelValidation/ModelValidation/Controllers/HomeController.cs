@@ -1,30 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ModelValidation.Models;
+using System;
 using System.Web.Mvc;
 
 namespace ModelValidation.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
+		public ViewResult MakeBooking()
 		{
-			return View();
+			return View(new Appointment
+			{
+				Date = DateTime.Now
+			});
 		}
 
-		public ActionResult About()
+		[HttpPost]
+		public ViewResult MakeBooking(Appointment appt)
 		{
-			ViewBag.Message = "Your application description page.";
+			if (string.IsNullOrEmpty(appt.ClientName))
+			{
+				ModelState.AddModelError("ClientName", "Please enter your name");
+			}
 
-			return View();
-		}
+			if (ModelState.IsValidField("Date") && DateTime.Now > appt.Date)
+			{
+				ModelState.AddModelError("Date", "Please enter a date in the future");
+			}
 
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+			if (!appt.TermsAccepted)
+			{
+				ModelState.AddModelError("TermsAccepted", "Your must accepnt the terms");
+			}
 
-			return View();
+			if (ModelState.IsValid)
+			{
+				return View("Completed", appt);
+			}
+			else
+			{
+				return View();
+			}
+
+			return View("Completed", appt);
+			
 		}
 	}
 }
