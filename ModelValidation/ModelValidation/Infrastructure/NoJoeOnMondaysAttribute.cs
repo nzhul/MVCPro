@@ -6,6 +6,11 @@ namespace ModelValidation.Infrastructure
 {
 	public class NoJoeOnMondaysAttribute : ValidationAttribute
 	{
+		public NoJoeOnMondaysAttribute()
+		{
+			ErrorMessage = "Joe cannot book appointments on Mondays";
+		}
+
 		public override bool IsValid(object value)
 		{
 			Appointment app = value as Appointment;
