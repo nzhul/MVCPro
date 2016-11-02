@@ -1,31 +1,60 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+	ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<div id="summaryDisplay" class="display">
+	<h4>Reservations</h4>
+	<table>
+		<thead>
+			<tr>
+				<th class="selectCol"></th>
+				<th class="nameCol">Name</th>
+				<th class="locationCol">Location</th>
+			</tr>
+		</thead>
+		<tbody id="tableBody">
+			<tr>
+				<td colspan="3">
+					The data is loading
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="buttonContainer">
+		<button id="refresh">Refresh</button>
+		<button id="add">Add</button>
+		<button id="edit">Edit</button>
+		<button id="delete">Delete</button>
+	</div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<div id="addDisplay" class="display">
+	<h4>Add new Reservation</h4>
+	@{
+		AjaxOptions addAjaxOpts = new AjaxOptions
+		{
+			// options will go here
+		};
+	}
+
+	@using (Ajax.BeginForm(addAjaxOpts))
+	{
+		@Html.Hidden("ReservationId", 0)
+		<p><label>Name:</label>@Html.Editor("ClientName")</p>
+		<p><label>Location:</label>@Html.Editor("Location")</p>
+		<button type="submit">Submit</button>
+	}
 </div>
+
+<div id="editDisplay" class="display">
+	<h4>Edit Reservation</h4>
+	<form id="editForm">
+		<input id="editReservationId" type="hidden" name="ReservationId"/>
+		<p><label>Name:</label><input type="text" name="ClientName" /></p>
+		<p><label>Location:</label><input type="text" name="Location"  /></p>
+	</form>
+	<button id="submitEdit" type="submit">Save</button>
+</div>
+
+<div style="clear:both;">&nbsp;</div>
