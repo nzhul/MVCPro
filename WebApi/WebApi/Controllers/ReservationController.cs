@@ -18,12 +18,14 @@ namespace WebApi.Controllers
 			return repo.Get(id);
 		}
 
-		public Reservation PostReservation(Reservation item)
+		[HttpPost]
+		public Reservation CreateReservation(Reservation item)
 		{
 			return repo.Add(item);
 		}
 
-		public bool PutReservation(Reservation item)
+		[HttpPut]
+		public bool UpdateReservation(Reservation item)
 		{
 			return repo.Update(item);
 		}

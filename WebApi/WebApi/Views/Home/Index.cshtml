@@ -2,6 +2,11 @@
 	ViewBag.Title = "Index";
 }
 
+@section scripts{
+	<script src="~/Scripts/Home/Index.js"></script>
+	<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
+
 
 <div id="summaryDisplay" class="display">
 	<h4>Reservations</h4>
@@ -34,7 +39,9 @@
 	@{
 		AjaxOptions addAjaxOpts = new AjaxOptions
 		{
-			// options will go here
+			OnSuccess = "getData",
+			Url = "/api/reservation",
+			HttpMethod = "POST",
 		};
 	}
 
@@ -50,9 +57,9 @@
 <div id="editDisplay" class="display">
 	<h4>Edit Reservation</h4>
 	<form id="editForm">
-		<input id="editReservationId" type="hidden" name="ReservationId"/>
-		<p><label>Name:</label><input type="text" name="ClientName" /></p>
-		<p><label>Location:</label><input type="text" name="Location"  /></p>
+		<input id="editReservationId" type="hidden" name="ReservationId" />
+		<p><label>Name:</label><input id="editClientName" type="text" name="ClientName" /></p>
+		<p><label>Location:</label><input id="editLocation" type="text" name="Location" /></p>
 	</form>
 	<button id="submitEdit" type="submit">Save</button>
 </div>

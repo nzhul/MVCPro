@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Net.Http.Headers;
+using System.Web.Http;
 
 namespace WebApi.App_Start
 {
@@ -12,8 +14,8 @@ namespace WebApi.App_Start
 				defaults: new {id = RouteParameter.Optional}
 				);
 
-			var formater = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-			formater.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+			var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+			config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 		}
 	}
 }
